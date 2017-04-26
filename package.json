@@ -11,7 +11,7 @@
     "test:coverage": "nyc report ava -- -v -s",
     "test:report": "nyc report ava -- -v -s --report=html",
     "test:watch": "yarn test -- --watch",
-    "lint:js": "eslint ./src",
+    "lint:js": "eslint **/*.js",
     "lint-staged": "lint-staged"
   },
   "lint-staged": {
@@ -21,7 +21,8 @@
     "frontend/src/**/*.js": "eslint",
     "load-balancer/src/**/*.js": "eslint"
   },
+  "pre-commit": "lint-staged",
   "keywords": [],
-  "author": "",
+  "author": "Oleg Lustenko",
   "license": "ISC"
 }
