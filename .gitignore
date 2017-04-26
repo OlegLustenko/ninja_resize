@@ -1,0 +1,7 @@
+node_modules
+dist
+.history
+npm-debug.log
+enlightment
+.nyc_output
+coverage

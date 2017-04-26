@@ -1,0 +1,104 @@
+swagger: "2.0"
+info:
+  title: Simple Koa auth
+  version: v1
+  contact: 
+    name: Oleg Lustenko
+    email: oleg.lustenko@gmail.com
+    url: http://vk.com/oleglustenko
+host: localhost:3000
+basePath: /api/v1
+schemes:
+    - "http"
+produces:
+      - application/json
+consumes:
+      - application/json
+paths:
+  /users/login:
+    post:
+      operationId: userLogin
+      summary: Login user to service
+      parameters: 
+       - in: "body"
+         name: "login"
+         description: "Login object"
+         required: true
+         schema: 
+            $ref:'#/definitions/Login'
+      responses:
+        "200":
+          description: |-
+            200 300 response
+          examples:
+            application/json: |-
+              {
+                  "versions": [
+                      {
+                          "status": "CURRENT",
+                          "updated": "2011-01-21T11:33:21Z",
+                          "id": "v2.0",
+                          "links": [
+                              {
+                                  "href": "http://127.0.0.1:8774/v2/",
+                                  "rel": "self"
+                              }
+                          ]
+                      },
+                      {
+                          "status": "EXPERIMENTAL",
+                          "updated": "2013-07-23T11:33:21Z",
+                          "id": "v3.0",
+                          "links": [
+                              {
+                                  "href": "http://127.0.0.1:8774/v3/",
+                                  "rel": "self"
+                              }
+                          ]
+                      }
+                  ]
+              }
+        "300":
+          description: |-
+            200 300 response
+          examples:
+            application/json: |-
+              {
+                  "versions": [
+                      {
+                          "status": "CURRENT",
+                          "updated": "2011-01-21T11:33:21Z",
+                          "id": "v2.0",
+                          "links": [
+                              {
+                                  "href": "http://127.0.0.1:8774/v2/",
+                                  "rel": "self"
+                              }
+                          ]
+                      },
+                      {
+                          "status": "EXPERIMENTAL",
+                          "updated": "2013-07-23T11:33:21Z",
+                          "id": "v3.0",
+                          "links": [
+                              {
+                                  "href": "http://127.0.0.1:8774/v3/",
+                                  "rel": "self"
+                              }
+                          ]
+                      }
+                  ]
+              }
+definitions: 
+  Login:
+    description: Login Object
+    properties:
+     name:
+         type: "string"
+         description: "User login name"
+     password:
+         type: "string"
+         description: "User password"
+     required:
+         - "name"
+         - "password"

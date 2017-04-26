@@ -1,0 +1,8 @@
+[ignore]
+<PROJECT_ROOT>/.history/.*
+.*\.test\.js
+[include]
+
+[libs]
+
+[options]
