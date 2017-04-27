@@ -21,7 +21,7 @@ export default {
     await new Promise(resolve => {
       setTimeout(resolve, 100);
     });
-    bodyValidation(ctx, 'name', 'password');
+    bodyValidation(ctx, 'user', 'password');
     const { user: name, password }: { name: string, password: string } = ctx.request.body;
     let user: ?any;
     try {

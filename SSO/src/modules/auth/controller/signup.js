@@ -5,8 +5,14 @@ export default {
   async post(ctx) {
     bodyValidation(ctx, 'user', 'email', 'password');
     const { user: name, email, password } = ctx.request.body;
-    console.log(name, email, password);
-    const user = await User.create({ name, email, password });
-    ctx.body = user;
+    let user;
+    try {
+      user = await User.create({ name, email, password });
+    } catch (e) {
+      ctx.log.error({ err: e }, 'signup error');
+      ctx.throw(401, 'Bad credentials.');
+    }
+
+    ctx.api(200, { data: { id: user._id, name } });
   }
 };
