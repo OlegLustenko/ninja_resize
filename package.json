@@ -5,13 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=production npm run dev",
-    "dev": "rimraf ./dist && babel -d ./dist ./src -s && nodemon --delay 500ms dev.js",
-    "debug": "rimraf ./dist && babel -d ./dist ./src -s && nodemon --inspect=3001 dev.js",
-    "test": "rimraf ./dist && ava -v -s",
-    "test:coverage": "nyc report ava -- -v -s",
-    "test:report": "nyc report ava -- -v -s --report=html",
-    "test:watch": "yarn test -- --watch",
-    "lint:js": "eslint **/*.js",
+    "dev": "docker-compose -f ./dockerfiles/docker-compose-dev.yml up",
     "lint-staged": "lint-staged"
   },
   "lint-staged": {
