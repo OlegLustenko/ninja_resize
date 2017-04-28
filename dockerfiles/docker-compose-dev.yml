@@ -8,12 +8,12 @@ services:
     - "../frontend:/srv/app"
     ports:
     - "${FRONTEND_PORT}:3000"
-  backend:
+  sso:
     build:
       context: ..
       dockerfile: ./dockerfiles/Dockerfile-dev
     volumes:
-    - "../backend:/srv/app"
+    - "../sso:/srv/app"
     ports:
-    - "${BACKEND_PORT}:3001"
+    - "${SSO_PORT}:3001"
     - "9229:9229"

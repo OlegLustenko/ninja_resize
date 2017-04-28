@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production npm run dev",
     "dev": "docker-compose -f ./dockerfiles/docker-compose-dev.yml up",
     "lint-staged": "lint-staged"
   },
