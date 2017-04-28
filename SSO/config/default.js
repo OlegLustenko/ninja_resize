@@ -1,6 +1,6 @@
 module.exports = {
   mongoose: {
-    uri: process.env.MONGO_DB,
+    uri: process.env.MONGO_DB || 'mongodb://sa:sa@ds117311.mlab.com:17311/ninja-resize',
     options: {
       server: {
         socketOptions: {
@@ -15,5 +15,5 @@ module.exports = {
   },
   secret: 'Hello world',
   HOST: process.env.HOST || 'localhost',
-  PORT: process.env.PORT || 3000
+  PORT: process.env.PORT || 3001
 };

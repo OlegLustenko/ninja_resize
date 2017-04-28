@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production npm run dev",
+    "start": "cross-env NODE_ENV=production yarn dev",
     "dev": "rimraf ./dist && babel -d ./dist ./src -s && nodemon --delay 500ms dev.js",
     "debug": "rimraf ./dist && babel -d ./dist ./src -s && nodemon --inspect=3001 dev.js",
     "test": "rimraf ./dist && ava -v -s",
@@ -66,6 +66,7 @@
     "eslint-plugin-flowtype": "^2.30.3",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-react": "^6.10.3",
+    "nodemon": "^1.11.0",
     "nyc": "^10.2.0",
     "pre-commit": "^1.2.2",
     "proxyquire": "^1.7.11",
