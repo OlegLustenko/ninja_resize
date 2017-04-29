@@ -18,6 +18,10 @@ middlewares.forEach(middleware => {
 
 app.use(mount('/api/v1', APIModules));
 
+app.use((ctx, next) => {
+  ctx.body = 'Hello world !';
+});
+
 app.listen(PORT, HOST, () => {
   console.log('server running at %s:%s', HOST, PORT);
 });
