@@ -17,5 +17,11 @@
   "pre-commit": "lint-staged",
   "keywords": [],
   "author": "Oleg Lustenko",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "lint-staged": "^3.4.1"
+  },
+  "devDependencies": {
+    "pre-commit": "^1.2.2"
+  }
 }

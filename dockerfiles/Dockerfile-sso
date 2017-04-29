@@ -2,5 +2,8 @@ FROM node:latest
 
 WORKDIR /srv/app
 
+COPY ./sso/package.json /srv/app
+COPY ./sso/yarn.lock /srv/app
 RUN yarn install
+
 CMD yarn start
