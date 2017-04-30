@@ -5,14 +5,14 @@
   "main": "index.js",
   "scripts": {
     "dev": "docker-compose -f ./dockerfiles/docker-compose-dev.yml up",
-    "prod": "docker-compose -f ./dockerfiles/docker-compose-prod.yml up",
+    "prod": "docker-compose -f ./dockerfiles/docker-compose.yml up",
+    "build": "yarn prod -- --build",
     "lint-staged": "lint-staged"
   },
   "lint-staged": {
     "SSO/src/**/*.js": "eslint",
     "resize/src/**/*.js": "eslint",
     "mailer/src/**/*.js": "eslint",
-    "frontend/src/**/*.js": "eslint",
     "load-balancer/src/**/*.js": "eslint"
   },
   "pre-commit": "lint-staged",

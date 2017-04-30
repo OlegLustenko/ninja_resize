@@ -21,7 +21,8 @@ app.use(mount('/api/v1', APIModules));
 app.use((ctx, next) => {
   ctx.body = 'Hello world !';
 });
-
-app.listen(PORT, HOST, () => {
+console.log(PORT);
+app.listen(PORT, err => {
+  if (err) throw new Error(err);
   console.log('server running at %s:%s', HOST, PORT);
 });

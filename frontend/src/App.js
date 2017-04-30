@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link, Redirect, withRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import api from './service/api';
 import Login from './Login';
 import Signup from './Signup';
@@ -7,9 +7,12 @@ import Uploads from './Uploads';
 
 import './App.css';
 
-console.log(Uploads);
+type AppStateType = {
+  user: string
+};
 
 class App extends Component {
+  state: AppStateType;
   constructor() {
     super();
     this.state = {
@@ -19,6 +22,7 @@ class App extends Component {
 
   componentDidMount() {
     api.ping();
+    api.login();
   }
 
   render() {

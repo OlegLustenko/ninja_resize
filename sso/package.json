@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=production yarn dev",
-    "dev": "rimraf ./dist && babel -d ./dist ./src -s && nodemon --delay 500ms dev.js",
+    "dev": "rimraf ./dist && babel -d ./dist ./src -s && nodemon --delay 500ms  dev.js",
     "debug": "rimraf ./dist && babel -d ./dist ./src -s && nodemon --inspect=3001 dev.js",
     "test": "rimraf ./dist && ava -v -s",
     "test:coverage": "nyc report ava -- -v -s",

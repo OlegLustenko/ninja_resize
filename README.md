@@ -1,30 +1,29 @@
-# HTTP Server
+# Docker file resizer
 
-yarn install
-yarn start
-yarn test
+## Prerequisites
 
-Для тестов решил попробовать jest, но proxyquire с [jest не работает](https://github.com/facebook/jest/issues/1937)
+Software:
+* `node`
+* `yarn` or `npm`
+* `docker`
+* `docker-compose`
 
-Когда нужно было мокать, или делать spy, на этом остановился.
+## First run
 
+`yarn prod -- --build` or `npm run prod -- --build`
 
-## Уровень сложности 1
+## Subsequent runs
 
-## http-server
-Реализовать (без использования модуля http) собственными средствами примитивный http-сервер.
+`yarn prod` or `npm run prod`
 
-Код, который демонстрирует использование нашего HTTP-сервера:
-https://gist.github.com/xanf/fb7f1018fa7700ecf510f99c2029e0cb 
+## Configuration
 
-* Модуль http должен реализовывать одну функцию createServer, которая возвращает экземпляр класса HttpServer, объвленный в файле `./http.js`
-* Класс HttpServer должен иметь метод listen, получающий на вход порт, и стартующий сервер на заданном порту
-* Когда к серверу подключается HTTP-клиент, сервер должен сгенерирова ть событие `request`. Аргументами события являются объекты req, res являющиеся экземплярами HttpRequest и HttpResponse (смотри далее) соответственно
-Событие request не должно вызываться ДО ТОГО, как были получены все заголовки запроса
-* Класс HttpRequest должен быть ReadableStream и содержать в себе ВСЕ ТЕЛО http-запроса (минус заголовки)
-* Класс HttpRequest должен иметь поля headers(объект, ключами являются имена заголовков, значениями - значения заголовков), поле method (метод, с которым выполняется HTTP-запрос), поле url (адрес http-запроса)
-Класс HttpResponse должен быть WritableStream. Все данные, отправленные в этот WritableStream должны быть отправлены клиенту
-* Класс HttpResponse должен представлять методы setHeader(headerName, value) - осуществляет установку заголовков (но не отправляет их) и writeHead (осуществляет отправку HTTP-статуса запроса)
-* Класс HttpResponse должен осуществлять отправку заголовков перед отправкой тела запроса клиенту.
-* Вызов setHeader после того как заголовки были отправлены должен генерировать ошибку
-```
+Environment variables can be changed in `.env` file
+
+## Development
+
+`yarn` or `npm install` in both frontend and backend directories
+
+`yarn dev -- --build` or `npm run dev -- --build` from root directory for first run
+and
+`yarn dev` or `npm run dev` for subsequent runs

@@ -6,6 +6,9 @@ services:
       dockerfile: ./dockerfiles/Dockerfile-dev
     volumes:
     - "../frontend:/srv/app"
+    networks:
+      - front-tier
+      - back-tier
     ports:
     - "${FRONTEND_PORT}:3000"
   sso:
@@ -14,8 +17,13 @@ services:
       dockerfile: ./dockerfiles/Dockerfile-dev
     volumes:
     - "../sso:/srv/app"
-    expose: 
-    - "3001"
+    networks:
+      - front-tier
+      - back-tier 
     ports:
     - "${SSO_PORT}:3001"
     - "9229:9229"
+
+networks:
+  front-tier:
+  back-tier:    

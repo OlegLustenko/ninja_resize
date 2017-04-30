@@ -1,6 +1,7 @@
 {
   "name": "frontend",
   "version": "0.1.0",
+  "proxy":"http://sso:3001",
   "private": true,
   "dependencies": {
     "react": "^15.5.4",
