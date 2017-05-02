@@ -7,39 +7,57 @@ import Uploads from './Uploads';
 
 import './App.css';
 
-type AppStateType = {
-  user: string
-};
-
 class App extends Component {
-  state: AppStateType;
+  state: {
+    userName: string
+  };
   constructor() {
     super();
     this.state = {
-      user: ''
+      userName: 'no auth yet'
     };
   }
 
-  componentDidMount() {
-    api.ping();
-    api.login();
+  async componentDidMount() {
+    const loggedIn = (await api.login()).message;
+    if (!loggedIn.token) {
+      this.setState({ user: loggedIn });
+      return;
+    }
+    const { user } = loggedIn;
+    api.jwt(loggedIn.token, user);
+    this.setState({ userName: user.name });
+  }
+
+  async login(userForm, passwordForm) {
+    const loggedIn = (await api.login(userForm, passwordForm)).message;
+    if (!loggedIn.token) {
+      this.setState({ user: loggedIn });
+      return;
+    }
+    const { user } = loggedIn;
+    api.jwt(loggedIn.token, user);
+    this.setState({ userName: user.name });
   }
 
   render() {
-    const { user } = this.state;
+    const { userName } = this.state;
+    const { login } = this;
     return (
       <Router>
         <div>
           <nav className="Navbar-header">
             <div className="Navbar__header-item nav">
               <Link to="/signup" className="nav__item">signup</Link>
-              <Link to="/login" className="nav__item">login</Link>
+              <Link to="/login" className="nav__item">
+                login
+              </Link>
               <Link to="/uploads" className="nav__item">uploads</Link>
             </div>
-            <pre className="Navbar__header-item">{user} qwe</pre>
+            <pre className="Navbar__header-item">{userName}</pre>
           </nav>
           <Route path="/signup" component={Signup} />
-          <Route path="/login" component={Login} />
+          <Route path="/login" component={Login} test="www" />
           <Route path="/uploads" component={Uploads} />
         </div>
       </Router>
@@ -48,3 +66,12 @@ class App extends Component {
 }
 
 export default App;
+
+type UserAuthType = {
+  _id: string,
+  email: string,
+  name: string,
+  role: string
+};
+
+type LoggedInMessageType = string | { token: string, user: UserAuthType };

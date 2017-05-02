@@ -37,7 +37,11 @@ export default {
     if (!user.validPassword(password)) {
       ctx.throw(401, 'password is incorrect');
     }
-    ctx.api(201, { token: jwt.sign(user.toJSON(), config.secret, { expiresIn: '1d' }) });
+    const jsonUser = user.toJSON();
+    ctx.api(201, {
+      token: jwt.sign(jsonUser, config.secret, { expiresIn: '1d' }),
+      user: jsonUser
+    });
     // ctx.body = { status: 'success', token: jwt.sign(user, config.secret, { expiresIn: '1d' }) };
   },
   async get(ctx) {

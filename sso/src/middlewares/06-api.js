@@ -3,7 +3,7 @@
 export default async (ctx, next) => {
   ctx.api = (status: number = 200, options: any = {}): void => {
     ctx.status = status;
-    ctx.body = { status: 'success', ...options };
+    ctx.body = { status: 'success', message: { ...options } };
   };
   ctx.log = {
     error({ err }, message) {

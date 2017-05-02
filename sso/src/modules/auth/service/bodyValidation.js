@@ -1,6 +1,7 @@
 // @flow
 export default (ctx: any, ...args: string[]) => {
   const { body } = ctx.request;
+  console.log(body);
   const badFields = args.reduce((badValidationFields: string[], field: string) => {
     if (body[field] === undefined) {
       badValidationFields.push(field);

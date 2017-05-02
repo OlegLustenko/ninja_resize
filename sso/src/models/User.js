@@ -59,4 +59,10 @@ UserSchema.methods.validPassword = function(password) {
   return bcrypt.compareSync(password, this.passwordHash);
 };
 
+UserSchema.set('toJSON', {
+  transform(doc, { email, name, role, _id }) {
+    return { _id, email, name, role };
+  }
+});
+
 export default mongoose.model('User', UserSchema);

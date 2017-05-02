@@ -11,10 +11,10 @@ export default async (ctx, next) => {
       console.log(index);
     });
   }
-
-  Object.keys(fields).forEach(key => {
-    ctx.request.body[key] = fields[key];
-  });
+  // console.log(fields);
+  // Object.keys(fields).forEach(key => {
+  //   ctx.request.body[key] = fields[key];
+  // });
 
   await next();
 };
