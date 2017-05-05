@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import api from './service/api';
-import Login from './Login';
+import api from '../service/api';
+import Login from '../containers/Login';
 import Signup from './Signup';
 import Uploads from './Uploads';
 
@@ -19,13 +19,12 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    const loggedIn = (await api.login()).message;
+    const loggedIn = (await api.login({ user: 'admin', password: 'admin' })).message;
     if (!loggedIn.token) {
       this.setState({ user: loggedIn });
       return;
     }
     const { user } = loggedIn;
-    api.jwt(loggedIn.token, user);
     this.setState({ userName: user.name });
   }
 
