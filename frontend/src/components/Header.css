@@ -1,0 +1,35 @@
+.Navbar-header, .controls {
+  display:flex;
+}
+
+
+.Navbar__header-item {
+  // padding: 1rem;
+  // margin: 1rem auto;
+  font-size:1.5rem;
+  height:100%;
+  flex:1 1 50px;
+}
+
+
+.Navbar-header{
+  padding:0 1.25rem;
+  // margin-top:20px;
+}
+
+.nav {
+  justify-content:flex-end;
+  align-self: center;
+  margin: 0.5rem 0 0.5rem 0;
+  flex:1 1 50px;
+  flex-basis:400px;
+}
+
+.nav__item {
+  border:1px solid;
+  padding: 1rem;
+  margin-right:1rem;
+  text-decoration: none;
+  color:black;
+  height:100%;
+}

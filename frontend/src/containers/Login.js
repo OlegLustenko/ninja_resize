@@ -2,26 +2,28 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import Action_LoginUser from '../actions/action_loginUser';
 
-const Login = props => (
-  <div>
-    <button>return</button>
-    <label>
-      <input type="text" placeholder="user" />
-    </label>
-    <label>
-      <input type="text" placeholder="password" />
-    </label>
-    <button>LOGIN</button>
-  </div>
-);
+const Login = props => {
+  console.log(props);
+  return (
+    <form>
+      <button>return</button>
+      <label>
+        <input type="text" placeholder="user" />
+      </label>
+      <label>
+        <input type="text" placeholder="password" />
+      </label>
+      <button>LOGIN</button>
+    </form>
+  );
+};
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapStateToProps = state => {
   return {
-    dispatch1: () => {
-      dispatch(actionCreator)
-    }
-  }
-}
+    authentificate: state.authentification
+  };
+};
 
-export default connect()(Login);
+export default connect(mapStateToProps, Action_LoginUser)(Login);

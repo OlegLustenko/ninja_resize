@@ -33,7 +33,7 @@ class Api {
     this.user = user;
   }
 
-  login({ user, password }: { user: string, password: string }): Promise<LoggedInType> {
+  signin({ user, password }: { user: string, password: string }): Promise<LoggedInType> {
     const config = {
       method: 'POST',
       headers: {
@@ -44,6 +44,7 @@ class Api {
         password
       })
     };
+    console.log(user, password)
     return fetch(`${this.url}/auth/login`, config).then(x => x.json()).catch(e => e.json());
   }
 
