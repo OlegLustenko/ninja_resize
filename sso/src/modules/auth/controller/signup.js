@@ -18,8 +18,6 @@ export default {
       } else {
         ctx.log.error({ err: e }, 'signup error');
       }
-      let [i, field, value] = e.message.match(/index:\s([a-z]+).*{\s?:\s?"([a-z]+)"/i);
-      console.log(field, value);
       ctx.throw(422, errFields || 'Bad credentials.');
     }
 
