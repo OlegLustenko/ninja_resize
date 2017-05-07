@@ -10,6 +10,7 @@ import recoverPasswordToken from './controller/recoverPasswordToken';
 
 const AuthModule = new Koa();
 AuthModule.use(router.post('/login', login.post));
+AuthModule.use(router.post('/login', login.get));
 AuthModule.use(router.post('/recover-password', recoverPassword.post));
 AuthModule.use(router.post('/signup', signup.post));
 

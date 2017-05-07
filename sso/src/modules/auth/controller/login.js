@@ -32,7 +32,7 @@ export default {
       user.update({ lastVisited: Date.now() });
     } catch (e) {
       ctx.log.error({ err: e }, 'User not found in DB');
-      ctx.throw(500, `No such User ${name}`);
+      ctx.throw(401, `No such User ${name}`);
     }
     if (!user.validPassword(password)) {
       ctx.throw(401, 'password is incorrect');

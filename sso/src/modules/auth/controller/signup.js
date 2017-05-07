@@ -9,10 +9,20 @@ export default {
     try {
       user = await User.create({ name, email, password });
     } catch (e) {
-      ctx.log.error({ err: e }, 'signup error');
-      ctx.throw(401, 'Bad credentials.');
+      let errFields;
+      if (e.errors) {
+        Object.keys(e.errors).forEach(field => {
+          ctx.log.error({ err: e.errors[field] }, 'signup error');
+          errFields = e.errors[field].message;
+        });
+      } else {
+        ctx.log.error({ err: e }, 'signup error');
+      }
+      let [i, field, value] = e.message.match(/index:\s([a-z]+).*{\s?:\s?"([a-z]+)"/i);
+      console.log(field, value);
+      ctx.throw(422, errFields || 'Bad credentials.');
     }
 
-    ctx.api(200, { data: { id: user._id, name } });
+    ctx.api(200, { id: user._id, name });
   }
 };

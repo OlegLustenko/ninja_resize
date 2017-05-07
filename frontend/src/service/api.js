@@ -6,46 +6,82 @@ type UserAuthType = {
   role: string
 };
 
-type LoggedInType = {
-  status: string,
-  message: string | { token: string, user: UserAuthType }
+type LoggedInSuccessType = {
+  status: 'success',
+  message: {
+    token: string,
+    user: UserAuthType
+  }
+};
+
+type LoggedInErrorType = {
+  status: 'error',
+  message: string
+};
+
+type LoggedInType = LoggedInSuccessType | LoggedInErrorType;
+
+type ApiDefaultConfigType = {
+  method: 'DELETE' | 'GET' | 'HEAD' | 'OPTIONS' | 'PATCH' | 'POST' | 'PUT',
+  headers: {
+    [string]: string
+  },
+  body?: string
 };
 
 class Api {
   url: string;
   _token: string;
   user: UserAuthType;
+  defaultConfig: ApiDefaultConfigType;
 
   constructor(url: string) {
     this.url = url;
-  }
-
-  get token(): string {
-    return this._token;
-  }
-
-  set token(token: string): void {
-    this._token = token;
-  }
-
-  jwt(token: string, user: UserAuthType): void {
-    this.token = token;
-    this.user = user;
+    this.defaultConfig = {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      }
+    };
   }
 
   signin({ user, password }: { user: string, password: string }): Promise<LoggedInType> {
     const config = {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json'
-      },
+      ...this.defaultConfig,
       body: JSON.stringify({
         user,
         password
       })
     };
-    console.log(user, password)
-    return fetch(`${this.url}/auth/login`, config).then(x => x.json()).catch(e => e.json());
+    return fetch(`${this.url}/auth/login`, config)
+      .then(response => {
+        // const contentType = response.headers.get('content-type');
+        // if (contentType && contentType.includes('application/json')) {
+        return response.json();
+        // }
+        // return response.text();
+      })
+      .catch(e => e);
+  }
+
+  signup({ user, email, password }: { user: string, email: string, password: string }): Promise<*> {
+    const config = {
+      ...this.defaultConfig,
+      body: JSON.stringify({
+        email,
+        user,
+        password
+      })
+    };
+    return fetch(`${this.url}/auth/signup`, config)
+      .then(response => {
+        // const contentType = response.headers.get('content-type');
+        // if (contentType && contentType.includes('application/json')) {
+        return response.json();
+        // }
+        // return response.text();
+      })
+      .catch(e => e);
   }
 
   static createApi() {

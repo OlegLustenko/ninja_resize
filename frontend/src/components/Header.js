@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
-// import api from '../service/api';
-import Login from '../containers/Login';
-import Signin from './auth/signin';
-import Signup from './Signup';
-import Uploads from './Uploads';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
-import './Header.css';
+import Home from './Home';
+import Signin from './auth/signin';
+import Signup from './auth/signup';
+import Signout from './auth/signout';
+import Uploads from './Uploads';
 
 class Header extends Component {
   state: {
@@ -19,60 +20,56 @@ class Header extends Component {
     };
   }
 
-  async componentDidMount() {
-    // const loggedIn = (await api.login({ user: 'admin', password: 'admin' })).message;
-    // if (!loggedIn.token) {
-    //   this.setState({ user: loggedIn });
-    //   return;
-    // }
-    // const { user } = loggedIn;
-    // this.setState({ userName: user.name });
-  }
-
-  async login(userForm, passwordForm) {
-    // const loggedIn = (await api.login(userForm, passwordForm)).message;
-    // if (!loggedIn.token) {
-    //   this.setState({ user: loggedIn });
-    //   return;
-    // }
-    // const { user } = loggedIn;
-    // api.jwt(loggedIn.token, user);
-    // this.setState({ userName: user.name });
+  renderLinks() {
+    if (this.props.authentificated) {
+      return [
+        <li className="nav-item" key="1">
+          <Link to="/uploads" className="nav-link">uploads</Link>
+        </li>,
+        <li className="nav-item" key="2">
+          <Link to="/signout" className="nav-link btn btn-outline-success my-2 my-sm-0">Sign out</Link>
+        </li>
+      ];
+    }
+    return [
+      <li className="nav-item" key="1">
+        <Link to="/signup" className="nav-link">Sign up</Link>
+      </li>,
+      <li className="nav-item" key="2">
+        <Link to="/signin" className="nav-link">Sign in</Link>
+      </li>
+    ];
   }
 
   render() {
-    const { userName } = this.state;
+    const { authentificated } = this.props;
     return (
-      <div>
-        <nav className="Navbar-header">
-          <div className="Navbar__header-item nav">
-            <Link to="/signup" className="nav__item">signup</Link>
-            <Link to="/login" className="nav__item">
-              Login
-            </Link>
-            <Link to="/signin" className="nav__item">
-              Sign in
-            </Link>
-            <Link to="/uploads" className="nav__item">uploads</Link>
-          </div>
-          <pre className="Navbar__header-item">{userName}</pre>
-        </nav>
-        <Route path="/signup" component={Signup} />
-        <Route path="/login" component={Login} test="www" />
-        <Route path="/signin" component={Signin} test="www" />
-        <Route path="/uploads" component={Uploads} />
-      </div>
+      <Router>
+        <div>
+          <nav className="navbar navbar-light navbar-toggleable-md">
+            <Link to="/" className="nav-link navbar-brand">Home</Link>
+            <ul className="navbar-nav navbar-collapse mx-auto">
+              {this.renderLinks()}
+            </ul>
+            <h1 className="navbar-brand nav-item">
+              {authentificated ? 'authentificated' : 'not authentificated'}
+            </h1>
+          </nav>
+          <Route exact path="/" component={Home} />
+          <Route path="/signup" component={Signup} />
+          <Route path="/signout" component={Signout} />
+          <Route path="/signin" component={Signin} />
+          <Route path="/uploads" component={Uploads} />
+        </div>
+      </Router>
     );
   }
 }
 
-export default Header;
-
-type UserAuthType = {
-  _id: string,
-  email: string,
-  name: string,
-  role: string
+const mapStateToProps = (state, ownProps) => {
+  return {
+    authentificated: state.auth.authentificated
+  };
 };
 
-type LoggedInMessageType = string | { token: string, user: UserAuthType };
+export default connect(mapStateToProps, actions)(Header);

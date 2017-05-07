@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 class Uploads extends Component {
   render() {
     return (
-      <div>
-        Uploads
-      </div>
+      <ul>
+        Secret feature route Uploads
+      </ul>
     );
   }
 }

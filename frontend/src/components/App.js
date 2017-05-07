@@ -3,10 +3,6 @@ import Header from './Header';
 
 import './App.css';
 
-const App = props => (
-  <div>
-    <Header />
-  </div>
-);
+const App = props => <Header />;
 
 export default App;

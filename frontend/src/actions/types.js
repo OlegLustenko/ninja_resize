@@ -1,8 +1,5 @@
 // @flow
 
-export const LOGOUT_REQUEST: string = 'LOGOUT_REQUEST';
-export const LOGOUT_SUCCESS: string = 'LOGOUT_SUCCESS';
-export const LOGOUT_FAILURE: string = 'LOGOUT_FAILURE';
-export const LOGIN_REQUEST: string = 'LOGIN_REQUEST';
-export const LOGIN_SUCCESS: string = 'LOGIN_SUCCESS';
-export const LOGIN_FAILURE: string = 'LOGIN_FAILURE';
+export const AUTH_USER: string = 'auth_user';
+export const UNAUTH_USER: string = 'unauth_user';
+export const AUTH_ERROR: string = 'auth_error';
