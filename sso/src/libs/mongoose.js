@@ -29,9 +29,9 @@ export default () =>
       .on('error', error => reject(error))
       .on('close', () => console.log('Database connection closed.'))
       .once('open', async () => {
-        await Promise.all[
-          (createEmptyDb(), createFixtures(Roles, roles), createFixtures(User, users))
-        ];
+        // await Promise.all[
+        //   (createEmptyDb(), createFixtures(Roles, roles), createFixtures(User, users))
+        // ]; 
         resolve(mongoose.connection.db);
         if (config.mongoose.uri.includes('mlab')) {
           console.log('\x1b[36m%s\x1b[0m', 'Connected to MongoLab');
@@ -41,7 +41,7 @@ export default () =>
       });
     console.log('Database initialization...');
 
-    mongoose.Promise = bluebird;
+    mongoose.Promise = Promise;
 
     mongoose.connect(config.mongoose.uri, config.mongoose.options, err => {
       if (err) {

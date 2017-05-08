@@ -27,7 +27,9 @@ class Header extends Component {
           <Link to="/uploads" className="nav-link">uploads</Link>
         </li>,
         <li className="nav-item" key="2">
-          <Link to="/signout" className="nav-link btn btn-outline-success my-2 my-sm-0">Sign out</Link>
+          <Link to="/signout" className="nav-link btn btn-outline-success my-2 my-sm-0">
+            Sign out
+          </Link>
         </li>
       ];
     }
@@ -66,7 +68,7 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
     authentificated: state.auth.authentificated
   };

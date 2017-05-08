@@ -13,11 +13,21 @@ class Signup extends Component {
   }
   handleFormSubmit(formProps) {
     // Call action creator to sign up the user!
-    this.props.signupUser(formProps);
-
+    this.props.signupUser(formProps, () => {
+      this.props.history.push('/signin');
+    });
   }
 
-  alertPasswordCheck() {}
+  renderAlert() {
+    if (this.props.errorMessage) {
+      return (
+        <div className="alert alert-danger">
+          <strong>Oops! </strong>{this.props.errorMessage}
+        </div>
+      );
+    }
+    return null;
+  }
 
   render() {
     const { handleSubmit } = this.props;
@@ -39,6 +49,7 @@ class Signup extends Component {
           <label htmlFor="passwordConfirm">Confirm Password:</label>
           <Field name="passwordConfirm" component={FieldInput('password', 'passwordConfirm')} />
         </fieldset>
+        {this.renderAlert()}
         <button type="submit" className="btn btn-primary">Sign up!</button>
       </form>
     );
@@ -70,10 +81,18 @@ const FieldInput = (type, fieldName) => ({ input, meta }) => [
   meta.touched && meta.error && <div className="error" key={fieldName + 'Alert'}>{meta.error}</div>
 ];
 
-export default connect(null, actions)(
-  reduxForm({
-    form: 'signup',
-    // fields: ['user', 'email', 'password', 'passwordConfirm'],
-    validate
-  })(Signup)
+const mapStateToProps = state => {
+  return {
+    errorMessage: state.auth.error
+  };
+};
+
+export default connect(mapStateToProps, actions)(
+  reduxForm(
+    {
+      form: 'signup',
+      // fields: ['user', 'email', 'password', 'passwordConfirm'],
+      validate
+    }
+  )(Signup)
 );

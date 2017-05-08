@@ -16,11 +16,16 @@ export default {
           errFields = e.errors[field].message;
         });
       } else {
-        ctx.log.error({ err: e }, 'signup error');
+        const duplicate = e.message.match(
+          /index\:\ (?:.*\.)?\$?(?:([_a-z0-9]*)(?:_\d*)|([_a-z0-9]*))\s*dup key/i
+        );
+        errFields = duplicate[1] || duplicate[2];
+        errFields = `${errFields.toUpperCase()} in use `;
+        ctx.log.error({ err: e }, `signup error ${errFields}`);
       }
-      ctx.throw(422, errFields || 'Bad credentials.');
+      ctx.throw(422, errFields || e.message || 'Bad credentials.');
     }
 
-    ctx.api(200, { id: user._id, name });
+    ctx.api(200);
   }
 };

@@ -12,7 +12,7 @@ type UserAuthType = {
   name: string,
   role: string
 };
-type SuccessAuthType = {
+type SuccessSigninType = {
   user: UserAuthType,
   token: string
 };
@@ -21,6 +21,11 @@ type AuthErrorActionType = {
   [x: string]: any,
   type: string,
   payload: string
+};
+
+type SuccessSignUpType = {
+  id: string,
+  name: string
 };
 
 const SERVERNOTRESPOND = 'Unexpected token P in JSON at position 0';
@@ -34,7 +39,7 @@ export function signinUser(
     const signInStatus = await api.signin({ user, password });
     if (signInStatus.status === 'success') {
       // if request is good...
-      const { user, token }: SuccessAuthType = signInStatus.message;
+      const { user, token }: SuccessSigninType = signInStatus.message;
       // -- Update State to indicate is authentificated
       dispatch({ type: AUTH_USER, user });
       // -- Save the JWT token
@@ -62,18 +67,21 @@ export function authError(error: string): AuthErrorActionType {
 
 export function signoutUser() {
   localStorage.removeItem('token');
+  localStorage.removeItem('userID');
   return {
     type: UNAUTH_USER
   };
 }
 
-export function signupUser({ user, password, email }) {
+export function signupUser({ user, password, email }, callback: Function) {
   return async (dispatch: Dispatch<*>) => {
     const signupStatus = await api.signup({ user, password, email });
-    if(signupStatus.status === 'success'){
-
+    if (signupStatus.status === 'success') {
+      const { id, name }: SuccessSignUpType = signupStatus.message;
+      dispatch(signoutUser());
+      callback();
     } else {
-      dispatch(authError(signupStatus.message))
+      dispatch(authError(signupStatus.message));
     }
   };
 }

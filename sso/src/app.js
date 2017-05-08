@@ -6,7 +6,9 @@ import mount from 'koa-mount';
 import database from './libs/mongoose';
 import APIModules from './modules/API-modules';
 
-database();
+(async () => {
+  await database();
+})();
 
 const app = new Koa();
 const middlewares = fs.readdirSync(join(__dirname, './middlewares')).sort();
