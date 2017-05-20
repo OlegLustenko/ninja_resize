@@ -45,6 +45,6 @@ export default {
     // ctx.body = { status: 'success', token: jwt.sign(user, config.secret, { expiresIn: '1d' }) };
   },
   async get(ctx) {
-    ctx.api(200, await User.findAll({}));
+    ctx.api(200, await User.find({}));
   }
 };

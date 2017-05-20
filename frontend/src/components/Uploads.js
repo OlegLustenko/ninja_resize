@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import * as actions from '../actions';
+import { connect } from 'react-redux';
 
 class Uploads extends Component {
   render() {
@@ -10,4 +12,4 @@ class Uploads extends Component {
   }
 }
 
-export default Uploads;
+export default connect(null, actions)(Uploads);

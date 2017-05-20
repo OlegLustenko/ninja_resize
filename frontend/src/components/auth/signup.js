@@ -5,6 +5,11 @@ import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
+const FieldInput = (type, fieldName) => ({ input, meta }) => [
+  <input type={type} {...input} placeholder={fieldName} className="form-control" key={fieldName} />,
+  meta.touched && meta.error && <div className="error" key={fieldName + 'Alert'}>{meta.error}</div>
+];
+
 class Signup extends Component {
   handleFormSubmit: Function;
   constructor() {
@@ -76,11 +81,6 @@ const validate = ({ password, email, passwordConfirm, user }) => {
   return errors;
 };
 
-const FieldInput = (type, fieldName) => ({ input, meta }) => [
-  <input type={type} {...input} placeholder={fieldName} className="form-control" key={fieldName} />,
-  meta.touched && meta.error && <div className="error" key={fieldName + 'Alert'}>{meta.error}</div>
-];
-
 const mapStateToProps = state => {
   return {
     errorMessage: state.auth.error
@@ -88,11 +88,9 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, actions)(
-  reduxForm(
-    {
-      form: 'signup',
-      // fields: ['user', 'email', 'password', 'passwordConfirm'],
-      validate
-    }
-  )(Signup)
+  reduxForm({
+    form: 'signup',
+    // fields: ['user', 'email', 'password', 'passwordConfirm'],
+    validate
+  })(Signup)
 );

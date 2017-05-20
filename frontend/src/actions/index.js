@@ -1,6 +1,5 @@
 // @flow
 
-// import './types';
 import type { Dispatch } from 'redux';
 
 import api from '../service/api';
@@ -40,7 +39,7 @@ export function signinUser(
     if (signInStatus.status === 'success') {
       // if request is good...
       const { user, token }: SuccessSigninType = signInStatus.message;
-      // -- Update State to indicate is authentificated
+      // -- Update State to indicate is authenticated
       dispatch({ type: AUTH_USER, user });
       // -- Save the JWT token
       localStorage.setItem('token', token);
@@ -83,5 +82,11 @@ export function signupUser({ user, password, email }, callback: Function) {
     } else {
       dispatch(authError(signupStatus.message));
     }
+  };
+}
+
+export function userUploads(): Function {
+  return async (dispatch: Dispatch<*>): Promise<*> => {
+    return await api.uploads();
   };
 }

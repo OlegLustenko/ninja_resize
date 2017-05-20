@@ -6,6 +6,7 @@
   "dependencies": {
     "axios": "^0.16.1",
     "bootstrap": "next",
+    "prop-types": "^15.5.10",
     "react": "next",
     "react-dom": "next",
     "react-redux": "^5.0.4",
