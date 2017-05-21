@@ -20,7 +20,6 @@ if (token) {
   // we need update application state
   store.dispatch({ type: AUTH_USER });
 }
-
 const render = Component => {
   ReactDOM.render(
     <Provider store={store}>

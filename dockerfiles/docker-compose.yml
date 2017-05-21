@@ -7,7 +7,7 @@ services:
     volumes:
     - "../frontend:/srv/app"
     ports:  
-    - "3000:3000"
+    - "${FRONTEND_PORT}:3000"
   sso:
     build:
       context: ..

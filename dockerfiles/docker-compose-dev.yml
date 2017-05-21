@@ -22,7 +22,42 @@ services:
       - back-tier 
     ports:
     - "${SSO_PORT}:3001"
-    - "9229:9229"
+    - "9229:9229" #DEBUG PORT
+  load-balancer:
+    build:
+      contextn: ..
+      dockerfile: ./dockerfiles/Dockerfile-dev
+    volumes:
+    - "../load-balancer:/srv/app"
+    networks:
+      - front-tier
+      - back-tier
+    ports:
+    - "${LOADBALANCER_PORT}:5030"
+    - "9229:9229" #DEBUG PORT
+  mailer:
+    build:
+      contextn: ..
+      dockerfile: ./dockerfiles/Dockerfile-dev
+    volumes:
+    - "../mailer:/srv/app"
+    networks:      
+      - back-tier
+    ports:
+    - "${MAILER_PORT}:5020"
+    - "9229:9229" #DEBUG PORT
+  resizer:
+    build:
+      contextn: ..
+      dockerfile: ./dockerfiles/Dockerfile-dev
+    volumes:
+    - "../load-balancer:/srv/app"
+    networks:      
+      - back-tier
+    ports:
+    - "${RESIZER_PORT}:5040"
+    - "9229:9229" #DEBUG PORT
+  
 
 networks:
   front-tier:

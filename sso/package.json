@@ -85,8 +85,7 @@
       "prettier"
     ],
     "env": {
-      "node": true,
-      "jest": true
+      "node": true
     }
   },
   "lint-staged": {
