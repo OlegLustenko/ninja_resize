@@ -1,3 +1,4 @@
+// @flow
 import Koa from 'koa';
 import router from 'koa-route';
 import koajwt from 'koa-jwt';

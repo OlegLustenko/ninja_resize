@@ -60,7 +60,7 @@ class Api {
   }
 
   uploads() {
-    return this.fetch(`${this.url}/auth/secret`, {})
+    return this.fetch(`${this.url}/auth/secret`, {});
   }
 
   setHeaders(headerName: string, headerValue: string): void {
@@ -78,11 +78,7 @@ class Api {
       body: JSON.stringify(options)
     };
 
-    return fetch(url, config)
-      .then(response => {
-        return response.json();
-      })
-      .catch(e => e);
+    return fetch(url, config).then(response => response.json()).catch(e => e);
   }
 
   static createApi() {

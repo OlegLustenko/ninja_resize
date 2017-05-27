@@ -1,0 +1,18 @@
+version: "3"
+services:
+  loadbalancer:
+    environment:
+      loadbalancer_port: ${loadbalancer_port}  
+    build:
+      context: ..
+      dockerfile: ./dockerfiles/Dockerfile-loadbalancer
+    volumes:
+      - "../loadbalancer:/srv/app"
+    ports:
+      - "${loadbalancer_port}:3003"
+      - "9229:9229" #DEBUG PORT
+
+
+networks:
+  front-tier:
+  back-tier:        

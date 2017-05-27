@@ -10,7 +10,7 @@ services:
       - front-tier
       - back-tier
     ports:
-    - "${FRONTEND_PORT}:3000"
+      - "${frontend_port}:3000" 
   sso:
     build:
       context: ..
@@ -21,42 +21,41 @@ services:
       - front-tier
       - back-tier 
     ports:
-    - "${SSO_PORT}:3001"
-    - "9229:9229" #DEBUG PORT
-  load-balancer:
+      - "${sso_port}:3001"
+      # - "9229:9229" #DEBUG PORT 
+  loadbalancer:
     build:
-      contextn: ..
+      context: ..
       dockerfile: ./dockerfiles/Dockerfile-dev
     volumes:
-    - "../load-balancer:/srv/app"
+    - "../loadbalancer:/srv/app"
     networks:
-      - front-tier
       - back-tier
     ports:
-    - "${LOADBALANCER_PORT}:5030"
-    - "9229:9229" #DEBUG PORT
-  mailer:
-    build:
-      contextn: ..
-      dockerfile: ./dockerfiles/Dockerfile-dev
-    volumes:
-    - "../mailer:/srv/app"
-    networks:      
-      - back-tier
-    ports:
-    - "${MAILER_PORT}:5020"
-    - "9229:9229" #DEBUG PORT
-  resizer:
-    build:
-      contextn: ..
-      dockerfile: ./dockerfiles/Dockerfile-dev
-    volumes:
-    - "../load-balancer:/srv/app"
-    networks:      
-      - back-tier
-    ports:
-    - "${RESIZER_PORT}:5040"
-    - "9229:9229" #DEBUG PORT
+      - "${loadbalancer_port}:3003"
+    environment:
+      loadbalancer_port: ${loadbalancer_port} 
+
+  # mailer:
+  #   build:
+  #     context: ..
+  #     dockerfile: ./dockerfiles/Dockerfile-dev
+  #   volumes:
+  #   - "../mailer:/srv/app"
+  #   networks:      
+  #     - back-tier
+  #   ports:
+  #   - "${mailer_port}:5020"
+  # resizer:
+  #   build:
+  #     context: ..
+  #     dockerfile: ./dockerfiles/Dockerfile-dev
+  #   volumes:
+  #   - "../loadbalancer:/srv/app"
+  #   networks:      
+  #     - back-tier
+  #   ports:
+  #   - "${resizer_port}:5040"
   
 
 networks:

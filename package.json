@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "docker-compose -f ./dockerfiles/docker-compose-dev.yml up",
     "prod": "docker-compose -f ./dockerfiles/docker-compose.yml up",
+    "loadbalancer":"docker-compose -f ./dockerfiles/docker-compose-lb.yml up",
     "build": "yarn prod -- --build",
     "lint-staged": "lint-staged"
   },
@@ -14,7 +15,7 @@
     "frontend/src/**/*.js": "eslint",
     "resizer/src/**/*.js": "eslint",
     "mailer/src/**/*.js": "eslint",
-    "load-balancer/src/**/*.js": "eslint"
+    "loadbalancer/src/**/*.js": "eslint"
   },
   "pre-commit": "lint-staged",
   "keywords": [],
