@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "cross-env NODE_ENV=production yarn dev",
-    "dev": "rimraf ./dist && babel -d ./dist ./src -s && nodemon --delay 500ms  dev.js",
+    "dev": "cross-env NODE_ENV=dev rimraf ./dist && babel -d ./dist ./src -s && nodemon --delay 500ms  dev.js",
     "debug": "rimraf ./dist && babel -d ./dist ./src -s && nodemon --inspect=3001 dev.js",
     "lint-staged": "lint-staged"
   },

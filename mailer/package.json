@@ -1,11 +1,54 @@
 {
   "name": "mailer",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dev.js",
   "license": "MIT",
-  "dependencies": {
-    "node-mailer": "^0.1.1"
+  "scripts": {
+    "start": "cross-env NODE_ENV=production yarn dev",
+    "dev": "rimraf ./dist && babel -d ./dist ./src -s && nodemon --delay 500ms  dev.js",
+    "debug": "rimraf ./dist && babel -d ./dist ./src -s && nodemon --inspect=3001 dev.js",
+    "lint-staged": "lint-staged"
   },
+  "dependencies": {
+    "async-busboy": "^0.5.0",
+    "babel-cli": "^6.23.0",
+    "babel-core": "next",
+    "babel-eslint": "^7.1.1",
+    "babel-plugin-dynamic-import-node": "^1.0.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "next",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-latest": "^6.22.0",
+    "cross-env": "^5.0.0",
+    "koa": "^2.2.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-jwt": "^3.2.2",
+    "koa-logger": "^3.0.0",
+    "koa-mount": "^3.0.0",
+    "koa-route": "^3.2.0",
+    "node-mailer": "^0.1.1",
+    "rc": "^1.2.1",
+    "rimraf": "^2.6.1"
+  },
+  "devDependencies": {
+    "eslint": "^3.16.1",
+    "eslint-config-airbnb-base": "^11.1.0",
+    "eslint-config-prettier": "^2.1.0",
+    "eslint-plugin-flowtype": "^2.30.3",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-react": "^7.0.1",
+    "flow-bin": "^0.47.0",
+    "nodemon": "^1.11.0",
+    "nyc": "^10.2.0",
+    "pre-commit": "^1.2.2",
+    "proxyquire": "^1.7.11",
+    "sinon": "^2.1.0",
+    "supertest": "^3.0.0"
+  },
+  "lint-staged": {
+    "src/**/*.js": "eslint"
+  },
+  "pre-commit": "lint-staged",
   "eslintConfig": {
     "parser": "babel-eslint",
     "root": true,
@@ -20,5 +63,42 @@
     "env": {
       "node": true
     }
+  },
+  "ava": {
+    "modules": true,
+    "tap": "true",
+    "require": [
+      "babel-register"
+    ],
+    "failFast": true,
+    "concurrency": 1,
+    "failWithoutAssertions": false,
+    "babel": "inherit",
+    "match": [
+      "!dist",
+      "!.history",
+      "**/*.test.js"
+    ]
+  },
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ],
+      "flow"
+    ],
+    "plugins": [
+      [
+        "transform-object-rest-spread",
+        {
+          "useBuiltIns": true
+        }
+      ]
+    ]
   }
 }

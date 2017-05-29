@@ -1,22 +1,23 @@
 /* eslint-disable consistent-return*/
-import asyncBusboy from 'async-busboy'
+import asyncBusboy from 'async-busboy';
+import fs from 'fs';
 
 export default async (ctx, next) => {
   if (!ctx.request.is('multipart/*')) {
     // eslint-disable-next-line
-    return await next()
+    return await next();
   }
-  const { files } = await asyncBusboy(ctx.req)
-
+  const { files } = await asyncBusboy(ctx.req);
   if (files) {
-    files.forEach((_, index) => {
-      console.log(index)
-    })
+    files.forEach(x => {
+      console.log(x);
+    });
   }
-  // console.log(fields);
-  // Object.keys(fields).forEach(key => {
-  //   ctx.request.body[key] = fields[key];
-  // });
+  // if (files) {
+  //   for (const file of files) {
+  //     fs.createWriteStream()
+  //   }
+  // }
 
-  await next()
-}
+  await next();
+};

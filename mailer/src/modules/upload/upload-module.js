@@ -10,10 +10,4 @@ UploadModule.use(
   })
 );
 
-UploadModule.use(
-  router.post('/', ctx => {
-    ctx.body = 'Hello upload module';
-  })
-);
-
 export default UploadModule;
