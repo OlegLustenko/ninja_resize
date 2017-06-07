@@ -1,16 +1,19 @@
-export default async (ctx, next) => {
+// @flow
+import type { Context } from 'koa';
+
+export default async (ctx: Context, next: () => Promise<void>) => {
   try {
-    await next()
+    await next();
   } catch (e) {
     if (e.status) {
       // could use template methods to render error page
-      console.log(e.status)
-      ctx.status = e.status
-      ctx.body = { status: 'error', message: e.message }
+      console.log(e.status);
+      ctx.status = e.status;
+      ctx.body = { status: 'error', message: e.message };
     } else {
-      ctx.body = 'Error 500'
-      ctx.status = 500
-      console.error(e.message, e.stack)
+      ctx.body = 'Error 500';
+      ctx.status = 500;
+      console.error(e.message, e.stack);
     }
   }
-}
+};

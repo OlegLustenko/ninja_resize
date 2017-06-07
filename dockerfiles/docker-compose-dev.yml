@@ -22,7 +22,9 @@ services:
       - back-tier 
     ports:
       - "${sso_port}:3001"
-      # - "9229:9229" #DEBUG PORT 
+      # - "9229:9229" #DEBUG PORT
+    environment: 
+      sso_secret: ${secret}
   loadbalancer:
     build:
       context: ..
@@ -34,7 +36,8 @@ services:
     ports:
       - "${loadbalancer_port}:3003"
     environment:
-      loadbalancer_port: ${loadbalancer_port} 
+      loadbalancer_port: ${loadbalancer_port}
+      loadbalancer_secret: ${secret}
 
   # mailer:
   #   build:

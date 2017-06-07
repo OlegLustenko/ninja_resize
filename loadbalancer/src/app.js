@@ -2,21 +2,20 @@
 
 import Koa from 'koa';
 import mount from 'koa-mount';
-import fs from 'fs';
-import path from 'path';
 
 import APIModules from './modules/API-modules';
+import loggerMiddleware from './middlewares/01-logger';
+import errorMiddleware from './middlewares/02-error';
+import bodyParserMiddleware from './middlewares/03-bodyparser';
+import multipart from './middlewares/04-multipart';
 
 const { port } = require('rc')('loadbalancer');
 
 const app = new Koa();
-
-const middlewares = fs.readdirSync(path.join(__dirname, './middlewares')).sort();
-
-middlewares.forEach(middleware => {
-  // eslint-disable-next-line
-  app.use(require(`./middlewares/${middleware}`).default);
-});
+app.use(loggerMiddleware);
+app.use(errorMiddleware);
+app.use(bodyParserMiddleware);
+app.use(multipart);
 
 app.use(mount('/api/v1/loadbalancer', APIModules));
 app.listen(port, () => {

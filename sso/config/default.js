@@ -1,3 +1,4 @@
+const { secret } = require('rc')('sso');
 module.exports = {
   mongoose: {
     uri: process.env.MONGO_DB || 'mongodb://sa:sa@ds117311.mlab.com:17311/ninja-resize',
@@ -13,7 +14,7 @@ module.exports = {
       }
     }
   },
-  secret: 'Hello world',
+  secret,
   HOST: process.env.HOST || 'localhost',
   PORT: process.env.PORT || 3001
 };

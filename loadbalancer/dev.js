@@ -1,5 +1,7 @@
 /* eslint-disable */
 
 require('babel-register');
-require('dotenv').config();
+if (process.env.NODE_ENV === 'dev') {
+  require('dotenv').config();
+}
 require('./src/app');

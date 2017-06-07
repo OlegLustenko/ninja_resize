@@ -7,17 +7,15 @@ services:
     volumes:
       - "../frontend:/srv/app"
     ports:
-      - "${frontend_port}:3000"
-    # expose: 
-    #   - 3000    
+      - "${frontend_port}:3000"   
   sso:
     build:
       context: ..
       dockerfile: ./dockerfiles/Dockerfile-sso
     volumes:
       - "../sso:/srv/app"
-    # expose: 
-    #   - 3000    
+    environment: 
+      sso_secret: ${secret}
   loadbalancer:
     build:
       context: ..
@@ -30,8 +28,9 @@ services:
     ports:
       - "${loadbalancer_port}:5030"
       - "9229:9229" #DEBUG PORT
-    expose: 
-      - 3000  
+    environment:
+      loadbalancer_port: ${loadbalancer_port}
+      loadbalancer_secret: ${secret}
   # mailer:
   #   build:
   #     context: ..
