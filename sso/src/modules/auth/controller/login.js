@@ -1,10 +1,21 @@
 // @flow
 
+import type { Context } from 'koa';
+import type { TypeOf } from 'flow-io';
+
 import jwt from 'jsonwebtoken';
 import config from 'config';
+import * as t from 'flow-io';
+import { PathReporter } from 'flow-io/lib/reporters/default';
 
 import User from '../../../models/User';
-import bodyValidation from '../service/bodyValidation';
+
+const err = reporter => ({ status: 401, message: `check fields: ${reporter.join(' ')}` });
+
+const LoginTypeImpl = t.$exact({
+  user: t.string,
+  password: t.string
+});
 
 /*
 ROUTE - /api/v1/auth/login
@@ -15,14 +26,25 @@ ROUTE - /api/v1/auth/login
    - { status: 'error', message: 'some-error' }
 */
 
+type LoginType = TypeOf<typeof LoginTypeImpl>;
+
 export default {
-  async post(ctx: any) {
+  async post(ctx: Context) {
     // anti-bruteforce pause
     await new Promise(resolve => {
       setTimeout(resolve, 100);
     });
-    bodyValidation(ctx, 'user', 'password');
-    const { user: name, password }: { name: string, password: string } = ctx.request.body;
+
+    const validation = t.validate(ctx.request.body, LoginTypeImpl);
+    let reporter = PathReporter.report(validation);
+
+    // a bit tricky
+    if (!reporter[0].includes('No errors!')) {
+      reporter = reporter.map(error => error.match(/\/(.*?): (.*?)?$/g)[0]);
+      throw err(reporter);
+    }
+
+    const { user: name, password }: LoginType = ctx.request.body;
     let user: ?any;
     try {
       user = await User.findOne({ name });

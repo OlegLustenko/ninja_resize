@@ -2486,6 +2486,16 @@ flow-bin@^0.46.0:
   version "0.46.0"
   resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.46.0.tgz#06ad7fe19dddb1042264438064a2a32fee12b872"
 
+flow-io@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/flow-io/-/flow-io-0.1.0.tgz#9de7eaa2296e016a563537d0aa25b5b5a0841fe0"
+  dependencies:
+    flow-static-land "^0.2.1"
+
+flow-static-land@^0.2.1:
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/flow-static-land/-/flow-static-land-0.2.6.tgz#dfd0a29d2894f03eb58e09047921e107f6b8bcd2"
+
 fn-name@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/fn-name/-/fn-name-2.0.1.tgz#5214d7537a4d06a4a301c0cc262feb84188002e7"

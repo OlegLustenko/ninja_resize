@@ -1,5 +1,3 @@
-import NoUserFind from '../services/errHandler';
-
 export default async (ctx, next) => {
   try {
     await next();

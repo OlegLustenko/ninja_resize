@@ -4,15 +4,14 @@ import type { Context } from 'koa';
 // import jwt from 'jsonwebtoken';
 import fs from 'fs';
 import path from 'path';
-import util from 'util';
+// import util from 'util';
 
 const root = process.cwd();
-const exist = util.promisify(fs.exists);
 
 export default {
   async post(ctx: Context): Promise<void> {
     const fileFolderPath = path.join(root, '/temp');
-    if (exist(fileFolderPath)) {
+    if (fs.existsSync(fileFolderPath)) {
       fs.mkdirSync(fileFolderPath);
     }
     try {

@@ -1,5 +1,7 @@
 // @flow
-export default (ctx: any, ...args: string[]) => {
+import type { Context } from 'koa';
+
+export default (ctx: Context, ...args: string[]) => {
   const { body } = ctx.request;
   console.log(body);
   if (!Object.keys(body).length) {
